@@ -32,14 +32,14 @@ def collate_fn(batch):
     lengths = torch.tensor([elem.shape[-1] for elem in batch])
     return nn.utils.rnn.pad_sequence(batch, batch_first=True), lengths
 
-train_dataset = AmiDataset()
+train_dataset = AmiDataset("train")
 train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, collate_fn=collate_fn, num_workers=2)
 #sr = train_dataset.sr
 
-valid_dataset = AmiDataset()
+valid_dataset = AmiDataset("validation")
 valid_loader = DataLoader(valid_dataset, batch_size=BATCH_SIZE, collate_fn=collate_fn, num_workers=2)
 
-test_dataset = AmiDataset()
+test_dataset = AmiDataset("test")
 test_loader = DataLoader(test_dataset, batch_size=BATCH_SIZE, collate_fn=collate_fn, num_workers=2)
 
 def adversarial_g_loss(features_stft_disc_G_x, features_wave_disc_G_x, lengths_stft, lengths_wave):

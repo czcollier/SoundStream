@@ -7,7 +7,8 @@ from torchaudio.transforms import MelSpectrogram
 from tqdm import tqdm
 
 from net import SoundStream, WaveDiscriminator, STFTDiscriminator
-from dataset import NSynthDataset, AmiDataset
+from dataset import NSynthDataset
+from ami_dataset import AmiDataset
 
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -33,12 +34,12 @@ def collate_fn(batch):
 
 train_dataset = AmiDataset()
 train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, collate_fn=collate_fn, num_workers=2)
-sr = train_dataset.sr
+#sr = train_dataset.sr
 
-valid_dataset = NSynthDataset(audio_dir="./data/nsynth-valid.jsonwav/nsynth-valid/audio")
+valid_dataset = AmiDataset()
 valid_loader = DataLoader(valid_dataset, batch_size=BATCH_SIZE, collate_fn=collate_fn, num_workers=2)
 
-test_dataset = NSynthDataset(audio_dir="./data/nsynth-test.jsonwav/nsynth-test/audio")
+test_dataset = AmiDataset()
 test_loader = DataLoader(test_dataset, batch_size=BATCH_SIZE, collate_fn=collate_fn, num_workers=2)
 
 def adversarial_g_loss(features_stft_disc_G_x, features_wave_disc_G_x, lengths_stft, lengths_wave):

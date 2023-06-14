@@ -1,11 +1,12 @@
 from torch.utils.data import Dataset, IterableDataset
 import torchaudio
+from datasets import load_dataset
 
 import glob
 
 class NSynthDataset(Dataset):
     """Dataset to load NSynth data."""
-    
+
     def __init__(self, audio_dir):
         super().__init__()
         
@@ -17,13 +18,4 @@ class NSynthDataset(Dataset):
     
     def __getitem__(self, index):
         return torchaudio.load(self.filenames[index])[0]
-        
-class AmiDataset(IterableDataset):
-    def __init__(self):
-        super().__init__()
-        self.source_data = load_dataset(
-            "edinburghcstr/ami",
-            'ihm', split='train', streaming=True)
-        
-    def __iter__(self):
-      return iter(self.source_data)
+

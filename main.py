@@ -31,7 +31,7 @@ def collate_fn(batch):
     lengths = torch.tensor([elem.shape[-1] for elem in batch])
     return nn.utils.rnn.pad_sequence(batch, batch_first=True), lengths
 
-train_dataset = NSynthDataset(audio_dir="./data/nsynth-train.jsonwav/nsynth-train/audio")
+train_dataset = AmiDataset()
 train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, collate_fn=collate_fn, num_workers=2)
 sr = train_dataset.sr
 

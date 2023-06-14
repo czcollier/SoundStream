@@ -7,7 +7,7 @@ from torchaudio.transforms import MelSpectrogram
 from tqdm import tqdm
 
 from net import SoundStream, WaveDiscriminator, STFTDiscriminator
-from dataset import NSynthDataset
+from dataset import NSynthDataset, AmiDataset
 
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
